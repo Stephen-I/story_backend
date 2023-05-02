@@ -28,5 +28,7 @@ const seed = ({ categoryData, commentData, reviewData, userData }) => {
                       synopsis VARCHAR NOT NULL,
                       story_section_id INT REFERENCES characters(story_section_id) NOT NULL,
                   );`);
+
+      return Promise.all([charactersTablePromise, storyPartsTablePromise]);
     });
 };
