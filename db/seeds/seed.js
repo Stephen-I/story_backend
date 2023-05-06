@@ -3,17 +3,17 @@ const format = require("pg-format");
 
 const seed = ({ characterData, story_partsData }) => {
   return db
-    .query(`DROP TABLE IF EXISTS story_parts;`)
+    .query(`DROP TABLE IF EXISTS characters;`)
     .then(() => {
-      return db.query(`DROP TABLE IF EXISTS characters;`);
+      return db.query(`DROP TABLE IF EXISTS story_parts;`);
     })
     .then(() => {
       const charactersTablePromise = db.query(`
                   CREATE TABLE characters (
-                       story_section_id SERIAL PRIMARY KEY,
+                    story_section_id INT REFERENCES story_parts(story_section_id) NOT NULL
                        full_name VARCHAR,
                        species VARCHAR NOT NULL,
-                       age INT DEFAULT 0,
+                       age INT DEFAULT 0 NOT NULL,
                        gender VARCHAR NOT NULL,
                        unique_skill VARCHAR NOT NULL,
                        incarnate_drive VARCHAR NOT NULL,
@@ -23,7 +23,7 @@ const seed = ({ characterData, story_partsData }) => {
                   CREATE TABLE story_parts (
                       part INT,
                       synopsis VARCHAR NOT NULL,
-                      story_section_id INT REFERENCES characters(story_section_id) NOT NULL
+                      story_section_id SERIAL PRIMARY KEY,
                   );`);
 
       return Promise.all([charactersTablePromise, storyPartsTablePromise]);
