@@ -1,5 +1,6 @@
 const db = require("../connection");
 const format = require("pg-format");
+const { formatCharacters } = require("./utils");
 
 const seed = ({ characterData, story_partsData }) => {
   return db
@@ -29,13 +30,32 @@ const seed = ({ characterData, story_partsData }) => {
       return Promise.all([charactersTablePromise, storyPartsTablePromise]);
     })
     .then(() => {
+      const insertStory_partsQueryStr = format(
+        "INSERT INTO story_parts (part, synopsis) VALUES %L;",
+        story_partsData.map(({ part, synopsis }) => [part, synopsis])
+      );
+
+      const story_partsPromise = db.query(insertStory_partsQueryStr);
+
+      return story_partsPromise;
+    })
+    .then(({ rows: story_partsRows }) => {
+      const storySectionIdLookup = createRef(
+        story_partsRows,
+        "part",
+        "story_section_id"
+      );
+      const formattedCharacterData = formatCharacters(
+        characterData,
+        storySectionIdLookup
+      );
       const insertCharacterQueryStr = format(
         "INSERT INTO characters (full_name, species, age, gender, unique_skill, incarnate_drive,story_section_id, backstory) VALUES %L;",
-        characterData.map(
+        formattedCharacterData.map(
           ({
             full_name,
             species,
-            age,
+            age = 0,
             gender,
             unique_skill,
             incarnate_drive,
@@ -56,14 +76,7 @@ const seed = ({ characterData, story_partsData }) => {
 
       const characterPromise = db.query(insertCharacterQueryStr);
 
-      const insertStory_partsQueryStr = format(
-        "INSERT INTO story_parts (part, synopsis) VALUES %L;",
-        story_partsData.map(({ part, synopsis }) => [part, synopsis])
-      );
-
-      const story_partsPromise = db.query(insertStory_partsQueryStr);
-
-      return Promise.all([characterPromise, story_partsPromise]);
+      return characterPromise;
     });
 };
 
