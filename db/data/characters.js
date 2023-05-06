@@ -170,7 +170,7 @@ module.exports = [
   {
     full_name: "Oswyn Eli",
     species: "Elf",
-    Age: 17,
+    Age: 47,
     gender: "Male",
     Extra:
       "Possesses opposite of incarnate energy known as degeneration which cancels incarnate powers, weilder of Hakaishin which Demiurge is imprisoned in. Uses bow otherwise.",
@@ -182,7 +182,7 @@ module.exports = [
   {
     full_name: "Eve Megumi",
     species: "Elf",
-    Age: 17,
+    Age: 45,
     gender: "Female",
     Extra:
       "Uses runes in place of incarnate powers due to low capacity, Martial artist",

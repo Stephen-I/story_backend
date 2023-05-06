@@ -8,29 +8,29 @@ const seed = ({ characterData, story_partsData }) => {
       return db.query(`DROP TABLE IF EXISTS story_parts;`);
     })
     .then(() => {
+      const storyPartsTablePromise = db.query(`
+                  CREATE TABLE story_parts (
+                    story_section_id SERIAL PRIMARY KEY,
+                      part INT,
+                      synopsis VARCHAR NOT NULL
+                  );`);
       const charactersTablePromise = db.query(`
                   CREATE TABLE characters (
-                    story_section_id INT REFERENCES story_parts(story_section_id) NOT NULL
                        full_name VARCHAR,
                        species VARCHAR NOT NULL,
                        age INT DEFAULT 0 NOT NULL,
                        gender VARCHAR NOT NULL,
                        unique_skill VARCHAR NOT NULL,
                        incarnate_drive VARCHAR NOT NULL,
+                       story_section_id INT REFERENCES story_parts(story_section_id) NOT NULL,
                        backstory VARCHAR
-                  );`);
-      const storyPartsTablePromise = db.query(`
-                  CREATE TABLE story_parts (
-                      part INT,
-                      synopsis VARCHAR NOT NULL,
-                      story_section_id SERIAL PRIMARY KEY,
                   );`);
 
       return Promise.all([charactersTablePromise, storyPartsTablePromise]);
     })
     .then(() => {
       const insertCharacterQueryStr = format(
-        "INSERT INTO characters (full_name, species, age, gender, unique_skill, incarnate_drive, backstory) VALUES %L;",
+        "INSERT INTO characters (full_name, species, age, gender, unique_skill, incarnate_drive,story_section_id, backstory) VALUES %L;",
         characterData.map(
           ({
             full_name,
@@ -39,6 +39,7 @@ const seed = ({ characterData, story_partsData }) => {
             gender,
             unique_skill,
             incarnate_drive,
+            story_section_id,
             backstory,
           }) => [
             full_name,
@@ -47,6 +48,7 @@ const seed = ({ characterData, story_partsData }) => {
             gender,
             unique_skill,
             incarnate_drive,
+            story_section_id,
             backstory,
           ]
         )
@@ -55,12 +57,8 @@ const seed = ({ characterData, story_partsData }) => {
       const characterPromise = db.query(insertCharacterQueryStr);
 
       const insertStory_partsQueryStr = format(
-        "INSERT INTO story_parts (part, synopsis, story_section_id) VALUES %L;",
-        story_partsData.map(({ part, synopsis, story_section_id }) => [
-          part,
-          synopsis,
-          story_section_id,
-        ])
+        "INSERT INTO story_parts (part, synopsis) VALUES %L;",
+        story_partsData.map(({ part, synopsis }) => [part, synopsis])
       );
 
       const story_partsPromise = db.query(insertStory_partsQueryStr);
