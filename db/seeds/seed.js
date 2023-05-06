@@ -3,10 +3,7 @@ const format = require("pg-format");
 
 const seed = ({ characterData, story_partsData }) => {
   return db
-    .query(`DROP TABLE IF EXISTS comments;`)
-    .then(() => {
-      return db.query(`DROP TABLE IF EXISTS story_parts;`);
-    })
+    .query(`DROP TABLE IF EXISTS story_parts;`)
     .then(() => {
       return db.query(`DROP TABLE IF EXISTS characters;`);
     })
