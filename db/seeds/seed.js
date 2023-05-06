@@ -1,6 +1,6 @@
 const db = require("../connection");
 const format = require("pg-format");
-const { formatCharacters } = require("./utils");
+const { formatCharacters, createRef } = require("./utils");
 
 const seed = ({ characterData, story_partsData }) => {
   return db
