@@ -1,2 +1,2 @@
-exports.characterTestData = require("./characters");
-exports.story_partsTestData = require("./story-parts");
+exports.characterData = require("./characters");
+exports.story_partsData = require("./story-parts");

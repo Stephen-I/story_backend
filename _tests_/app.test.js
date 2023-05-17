@@ -2,9 +2,10 @@ const request = require("supertest");
 const app = require("../app");
 const db = require("../db/connection");
 const seed = require("../db/seeds/seed");
+const CharacterTestData = require("../db/test_data/index");
 const CharacterData = require("../db/data/index");
 
-beforeEach(() => seed(CharacterData));
+beforeEach(() => seed(CharacterTestData));
 afterAll(() => db.end());
 
 describe("/api", () => {
