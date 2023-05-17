@@ -1,3 +1,5 @@
 DROP DATABASE IF EXISTS kizenthia;
+DROP DATABASE IF EXISTS kizenthia_test;
 
 CREATE DATABASE kizenthia;
+CREATE DATABASE kizenthia_test;
