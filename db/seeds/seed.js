@@ -45,33 +45,10 @@ const seed = ({ characterData, story_partsData }) => {
         "part",
         "story_section_id"
       );
-      const formattedCharacterData = formatCharacters(
-        characterData,
-        storySectionIdLookup
-      );
+      const formattedCharacterData = formatCharacters(characterData);
       const insertCharacterQueryStr = format(
         "INSERT INTO characters (full_name, species, age, gender, unique_skill, incarnate_drive,story_section_id, backstory) VALUES %L;",
-        formattedCharacterData.map(
-          ({
-            full_name,
-            species,
-            age = 0,
-            gender,
-            unique_skill,
-            incarnate_drive,
-            story_section_id,
-            backstory,
-          }) => [
-            full_name,
-            species,
-            age,
-            gender,
-            unique_skill,
-            incarnate_drive,
-            story_section_id,
-            backstory,
-          ]
-        )
+        formattedCharacterData
       );
 
       const characterPromise = db.query(insertCharacterQueryStr);

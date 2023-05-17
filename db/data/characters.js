@@ -70,7 +70,7 @@ module.exports = [
   {
     full_name: "Richter",
     species: "Demon",
-    Age: 740,
+    age: 740,
     gender: "Male",
     Extra: "Father to Fiona and Aurora",
     unique_skill: "None",
@@ -170,7 +170,7 @@ module.exports = [
   {
     full_name: "Oswyn Eli",
     species: "Elf",
-    Age: 47,
+    age: 47,
     gender: "Male",
     Extra:
       "Possesses opposite of incarnate energy known as degeneration which cancels incarnate powers, weilder of Hakaishin which Demiurge is imprisoned in. Uses bow otherwise.",
@@ -182,7 +182,7 @@ module.exports = [
   {
     full_name: "Eve Megumi",
     species: "Elf",
-    Age: 45,
+    age: 45,
     gender: "Female",
     Extra:
       "Uses runes in place of incarnate powers due to low capacity, Martial artist",
@@ -194,7 +194,7 @@ module.exports = [
   {
     full_name: "Zlattomir",
     species: "Giant",
-    Age: 200,
+    age: 200,
     gender: "Male",
     Extra: "Leader of Giants",
     unique_skill: "None",
@@ -205,7 +205,7 @@ module.exports = [
   {
     full_name: "Thyrax",
     species: "Giant",
-    Age: 160,
+    age: 160,
     gender: "Male",
     Extra: "General of fire for Giants",
     unique_skill: "None",
@@ -216,7 +216,7 @@ module.exports = [
   {
     full_name: "Isley",
     species: "Giant",
-    Age: 160,
+    age: 160,
     gender: "Male",
     Extra: "General of Ice for Giants",
     unique_skill: "None",
