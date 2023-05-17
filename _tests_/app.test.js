@@ -8,7 +8,15 @@ beforeEach(() => seed(CharacterData));
 afterAll(() => db.end());
 
 describe("/api", () => {
-  test.only("return array of character objects", () => {
+  test("return request app", () => {
+    return request(app)
+      .get("/api")
+      .expect(200)
+      .then(({ body }) => {
+        expect(body.message).toEqual("all ok");
+      });
+  });
+  test("return array of character objects", () => {
     return request(app)
       .get("/api/charcters")
       .expect(200)
