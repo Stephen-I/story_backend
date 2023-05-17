@@ -21,6 +21,7 @@ const seed = ({ characterData, story_partsData }) => {
                        species VARCHAR NOT NULL,
                        age INT DEFAULT 0 NOT NULL,
                        gender VARCHAR NOT NULL,
+                       extra VARCHAR NOT NULL,
                        unique_skill VARCHAR NOT NULL,
                        incarnate_drive VARCHAR NOT NULL,
                        story_section_id INT REFERENCES story_parts(story_section_id) NOT NULL,
@@ -47,7 +48,7 @@ const seed = ({ characterData, story_partsData }) => {
       );
       const formattedCharacterData = formatCharacters(characterData);
       const insertCharacterQueryStr = format(
-        "INSERT INTO characters (full_name, species, age, gender, unique_skill, incarnate_drive,story_section_id, backstory) VALUES %L;",
+        "INSERT INTO characters (full_name, species, age, gender, extra, unique_skill, incarnate_drive,story_section_id, backstory) VALUES %L;",
         formattedCharacterData
       );
 
