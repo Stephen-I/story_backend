@@ -1,4 +1,4 @@
-import { seeCharacters } from "../modals/character.modal";
+const { seeCharacters } = require("../modals/character.modal");
 
 exports.getMessage = (req, res) => {
   res.status(200).send({ message: "all ok" });

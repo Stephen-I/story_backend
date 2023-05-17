@@ -1,12 +1,3 @@
-// exports.formatCharacters = (characters, idLookup) => {
-//   return characters.map(({  }) => {
-//     const story_section_id = idLookup[];
-//     return {
-//       story_section_id,
-//     };
-//   });
-// };
-
 exports.formatCharacters = (characters) => {
   return characters.map(
     ({
