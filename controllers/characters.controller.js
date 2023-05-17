@@ -9,3 +9,7 @@ exports.viewCharacters = (req, res) => {
     res.status(200).send({ characters });
   });
 };
+
+exports.notFoundErr = (req, res, next) => {
+  res.status(404).send({ msg: "Path not found" });
+};

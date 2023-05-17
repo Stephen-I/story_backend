@@ -2,6 +2,7 @@ const express = require("express");
 const {
   getMessage,
   viewCharacters,
+  notFoundErr,
 } = require("./controllers/characters.controller");
 const app = express();
 
