@@ -15,6 +15,9 @@ const seed = ({ characterData, story_partsData }) => {
                       part INT,
                       synopsis VARCHAR NOT NULL
                   );`);
+      return storyPartsTablePromise;
+    })
+    .then(() => {
       const charactersTablePromise = db.query(`
                   CREATE TABLE characters (
                        full_name VARCHAR,
@@ -24,11 +27,11 @@ const seed = ({ characterData, story_partsData }) => {
                        extra VARCHAR NOT NULL,
                        unique_skill VARCHAR NOT NULL,
                        incarnate_drive VARCHAR NOT NULL,
-                       story_section_id INT REFERENCES story_parts(story_section_id) NOT NULL,
+                       story_section_id INT, 
                        backstory VARCHAR
                   );`);
 
-      return Promise.all([storyPartsTablePromise, charactersTablePromise]);
+      return charactersTablePromise;
     })
     .then(() => {
       const insertStory_partsQueryStr = format(
