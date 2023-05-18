@@ -28,7 +28,7 @@ const seed = ({ characterData, story_partsData }) => {
                        backstory VARCHAR
                   );`);
 
-      return Promise.all([charactersTablePromise, storyPartsTablePromise]);
+      return Promise.all([storyPartsTablePromise, charactersTablePromise]);
     })
     .then(() => {
       const insertStory_partsQueryStr = format(
@@ -40,12 +40,7 @@ const seed = ({ characterData, story_partsData }) => {
 
       return story_partsPromise;
     })
-    .then(({ rows: story_partsRows }) => {
-      const storySectionIdLookup = createRef(
-        story_partsRows,
-        "part",
-        "story_section_id"
-      );
+    .then(() => {
       const formattedCharacterData = formatCharacters(characterData);
       const insertCharacterQueryStr = format(
         "INSERT INTO characters (full_name, species, age, gender, extra, unique_skill, incarnate_drive,story_section_id, backstory) VALUES %L;",
